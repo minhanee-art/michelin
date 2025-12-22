@@ -21,11 +21,11 @@ const ProductList = () => {
      */
     const getDotColor = (dot) => {
         if (!dot) return 'text-slate-400';
-        const year = dot.slice(-2);
-        switch (year) {
-            case '24': return 'text-red-600 font-bold'; // 24년식 - 레드
-            default: return 'text-slate-500';
+        // 24년식 강조 (4924, 2024.2 등 '24'가 포함된 경우)
+        if (dot.includes('24')) {
+            return 'text-red-600 font-bold';
         }
+        return 'text-slate-500';
     };
 
     const toggleDotExpansion = (productIndex, e) => {
