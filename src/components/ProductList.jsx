@@ -387,7 +387,7 @@ const ProductList = () => {
                         <button
                             onClick={loadData}
                             disabled={!filter.size.trim() || loading}
-                            className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-100 disabled:text-slate-400 text-white font-bold rounded-xl transition-all shadow-md active:scale-[0.98]"
+                            className="flex items-center justify-center gap-2 px-6 py-3 bg-[#004F9F] hover:bg-[#003d7c] disabled:bg-slate-100 disabled:text-slate-400 text-white font-bold rounded-xl transition-all shadow-lg active:scale-[0.98] border border-transparent"
                         >
                             {loading ? <RefreshCw size={18} className="animate-spin" /> : <Search size={18} />}
                             <span className="whitespace-nowrap hidden sm:inline">검색</span>
@@ -423,8 +423,8 @@ const ProductList = () => {
 
                 <div className="mt-4 flex items-center justify-between text-[11px] font-bold tracking-wider">
                     <div className="flex items-center gap-3 text-slate-400 uppercase">
-                        <span>검색 결과</span>
-                        <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-100">{filteredProducts.length}</span>
+                        <span>품목</span>
+                        <span className="text-michelinBlue bg-michelinYellow px-2 py-0.5 rounded font-black shadow-sm">{filteredProducts.length}</span>
                     </div>
                     <div className="text-slate-400 italic lg:block hidden">
                         * 공장도 가격이 등록된 미쉐린 상품만 리스팅됩니다.
@@ -478,15 +478,15 @@ const ProductList = () => {
                                     const selected = isSelected(p);
 
                                     return (
-                                        <tr key={idx} className={`group transition-premium hover:bg-slate-50 ${selected ? 'bg-blue-50' : ''}`} onClick={() => toggleSelectItem(p)} style={{ cursor: 'pointer' }}>
+                                        <tr key={idx} className={`group transition-premium hover:bg-slate-50 ${selected ? 'bg-michelinYellow/10' : ''}`} onClick={() => toggleSelectItem(p)} style={{ cursor: 'pointer' }}>
                                             <td className="px-5 py-4 font-medium text-slate-700">
                                                 <span className="text-slate-400 mr-2 text-xs font-mono">[{p.cai || '-'}]</span>
                                                 {p.model}
                                             </td>
                                             <td className="px-5 py-4">
-                                                <span className="bg-slate-100 px-2 py-1 rounded font-mono text-[13px] border border-slate-200 text-slate-600">{p.size}</span>
+                                                <span className="bg-slate-100 px-2 py-1 rounded font-mono text-[14px] border border-slate-200 text-slate-600">{p.size}</span>
                                             </td>
-                                            <td className="px-5 py-4 text-right font-black text-blue-600 tabular-nums">
+                                            <td className="px-5 py-4 text-right font-black text-michelinBlue tabular-nums text-base">
                                                 {factoryPrice ? factoryPrice.toLocaleString() : '-'}
                                             </td>
                                             <td className="px-5 py-4 text-right font-black tabular-nums">
@@ -529,7 +529,7 @@ const ProductList = () => {
                             const selected = isSelected(p);
 
                             return (
-                                <div key={idx} className={`relative p-5 rounded-2xl border transition-premium overflow-hidden ${selected ? 'bg-blue-50 border-blue-200 shadow-md' : 'bg-white border-slate-200'}`}>
+                                <div key={idx} className={`relative p-5 rounded-2xl border transition-premium overflow-hidden ${selected ? 'bg-michelinYellow/10 border-michelinYellow/50 shadow-md' : 'bg-white border-slate-200'}`}>
                                     {/* Selection Glow */}
                                     {selected && <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-[60px] pointer-events-none"></div>}
 
@@ -728,7 +728,7 @@ const ProductList = () => {
                         <div className="p-6 bg-white space-y-4 pb-10 sm:pb-6">
                             <button
                                 onClick={copyToClipboard}
-                                className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white font-black text-lg rounded-2xl flex items-center justify-center gap-3 shadow-lg active:scale-[0.98] transition-all group overflow-hidden relative"
+                                className="w-full py-5 bg-michelinBlue hover:bg-[#003d7c] text-white font-black text-lg rounded-2xl flex items-center justify-center gap-3 shadow-lg active:scale-[0.98] transition-all group overflow-hidden relative"
                             >
                                 <Copy size={22} className="group-hover:rotate-12 transition-transform" />
                                 견적 내용 복사

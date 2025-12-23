@@ -10,8 +10,10 @@ export default {
                 sans: ['Inter', 'sans-serif'],
             },
             colors: {
+                michelinBlue: '#004F9F',
+                michelinYellow: '#FFD500',
                 slate: {
-                    850: '#1e293b', // Custom dark slate
+                    850: '#1e293b',
                     900: '#0f172a',
                 }
             }

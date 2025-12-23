@@ -10,23 +10,18 @@ const ShopLayout = ({ children }) => {
             </div>
 
             {/* Premium Header */}
-            <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+            <header className="bg-michelinYellow sticky top-0 z-40 shadow-md border-b border-michelinBlue/10">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-md transform rotate-3">
-                            <span className="text-white font-black text-xs">DT</span>
-                        </div>
-                        <h1 className="text-lg font-black text-slate-900 tracking-tight flex items-baseline gap-2">
-                            대동타이어
-                            <span className="text-blue-600 mx-1">|</span>
-                            미쉐린타이어 재고검색
+                        <h1 className="text-xl font-black text-michelinBlue tracking-tight">
+                            대동 - 미쉐린 검색
                         </h1>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-slate-100 rounded-full border border-slate-200">
-                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)] animate-pulse"></div>
-                            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Live</span>
+                        <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-michelinYellow/20 rounded-full border border-michelinYellow/30">
+                            <div className="w-1.5 h-1.5 rounded-full bg-michelinBlue shadow-[0_0_8px_rgba(0,79,159,0.4)] animate-pulse"></div>
+                            <span className="text-[10px] text-michelinBlue font-bold uppercase tracking-widest">Live</span>
                         </div>
                     </div>
                 </div>
