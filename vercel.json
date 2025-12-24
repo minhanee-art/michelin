@@ -3,8 +3,16 @@
     "framework": "vite",
     "rewrites": [
         {
-            "source": "/api/(.*)",
-            "destination": "/api/$1"
+            "source": "/api/stock",
+            "destination": "/api/stock.js"
+        },
+        {
+            "source": "/api/factory-prices",
+            "destination": "/api/factory-prices.js"
+        },
+        {
+            "source": "/api/sheet-data",
+            "destination": "/api/sheet-data.js"
         },
         {
             "source": "/((?!api/).*)",

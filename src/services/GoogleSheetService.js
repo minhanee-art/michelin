@@ -1,86 +1,33 @@
-import Papa from 'papaparse';
-
-// Consolidated Sheet URL from User (Corrected to output CSV)
-const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTHpRh8_kaiBQQaXE0i8nz2tH8uAwm1I1oS6hHQF87C5-LrlDcNTbRKN5xCVeEtbgro8pA2LAjRgT8V/pub?gid=903841373&single=true&output=csv';
-
-// Cache configuration
 let cachedSheetData = null;
 let lastFetchTime = 0;
-const CACHE_TTL = 1 * 60 * 1000; // 1 minute in milliseconds
+const CACHE_TTL = 1 * 60 * 1000; // 1 minute cache in memory
 
 /**
- * Service to fetch Data (Price, DOT, Info) from Google Sheets
+ * Service to fetch Data (Price, DOT, Info) via server-side proxy
  */
 export const googleSheetService = {
-    /**
-     * Fetches all product data from the configured Google Sheet CSV.
-     * Uses in-memory caching to improve performance.
-     */
     fetchSheetData: async (forceRefresh = false) => {
         const now = Date.now();
         if (!forceRefresh && cachedSheetData && (now - lastFetchTime < CACHE_TTL)) {
-            console.log('Serving Google Sheet data from cache');
-            return Promise.resolve(cachedSheetData);
+            console.log('Serving tire info from cache');
+            return cachedSheetData;
         }
 
         try {
-            console.log('Fetching Google Sheet data from network...');
-            const response = await fetch(GOOGLE_SHEET_CSV_URL);
-            const csvText = await response.text();
+            console.log('Fetching tire info from server...');
+            const response = await fetch('/api/sheet-data');
 
-            return new Promise((resolve, reject) => {
-                Papa.parse(csvText, {
-                    header: true,
-                    skipEmptyLines: true,
-                    complete: (results) => {
-                        const parsedData = results.data.map(row => {
-                            // Extract Key Fields
-                            const code = row['code'] ? String(row['code']).trim() : '';
-                            const size = row['size'] ? String(row['size']).trim() : '';
-                            const brand = row['brand'] ? String(row['brand']).trim() : '';
-                            const model = row['model'] ? String(row['model']).trim() : '';
-                            const price = row['factory price'] ? row['factory price'].replace(/[^0-9]/g, '') : '0';
-                            const cai = row['cai'] ? String(row['cai']).trim() : '';
+            if (!response.ok) throw new Error('Failed to fetch sheet data');
 
-                            // Extract DOT columns (e.g., "DOT #1-1", "DOT #1-2" ... "DOT #1-9")
-                            const dotList = [];
-                            Object.keys(row).forEach(key => {
-                                if (key.includes('#')) {
-                                    const val = row[key] ? row[key].trim() : '';
-                                    // Clean up label: "DOT #1-1" -> "#1-1"
-                                    const label = key.replace('DOT ', '').trim();
-                                    if (val && val !== '0' && val !== '-') {
-                                        dotList.push(`${label}: ${val}`);
-                                    }
-                                }
-                            });
+            const data = await response.json();
 
-                            return {
-                                code: code,
-                                size: size,
-                                brand: brand,
-                                model: model,
-                                factoryPrice: Number(price),
-                                dotList: dotList,
-                                cai: cai
-                            };
-                        });
+            cachedSheetData = data;
+            lastFetchTime = Date.now();
 
-                        // Update Cache
-                        cachedSheetData = parsedData;
-                        lastFetchTime = Date.now();
-
-                        resolve(parsedData);
-                    },
-                    error: (error) => {
-                        reject(error);
-                    }
-                });
-            });
+            return data;
         } catch (error) {
-            console.error('Error fetching Google Sheet data:', error);
-            // Return cached data if available even if expired on error
-            if (cachedSheetData) return Promise.resolve(cachedSheetData);
+            console.error('Error fetching tire info:', error);
+            if (cachedSheetData) return cachedSheetData;
             return [];
         }
     }
