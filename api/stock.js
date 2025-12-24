@@ -1,4 +1,4 @@
-const { parse } = require('node-html-parser');
+import { parse } from 'node-html-parser';
 
 export default async function handler(req, res) {
     const { stx } = req.query;
